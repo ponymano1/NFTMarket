@@ -26,7 +26,7 @@ contract NFTMarket is IERC721Receiver, ITokenRecipient{
     error NotOwner(address addr);
     error NotApproved(uint256 tokenId);
     error NotListed(uint256 tokenId);
-    error NotEngouthToken(uint256 value, uint256 price);
+    error NotEnoughToken(uint256 value, uint256 price);
 
     event List(uint256 indexed tokenId, address from, uint256 price);
     event Sold(uint256 indexed tokenId, address from, address to, uint256 price);
@@ -82,7 +82,7 @@ contract NFTMarket is IERC721Receiver, ITokenRecipient{
         emit Sold(tokenId, owner, msg.sender, price);
     }
 
-    function tokenReceived(address _from, address _to, uint256 _value, uint256 data) override ITokenRecipient public {
+    function tokenRecived(address _from, address _to, uint256 _value, uint256 data) override public {
         // do something
         uint256 tokenId = data;
         uint256 price = _prices[tokenId];
@@ -93,8 +93,9 @@ contract NFTMarket is IERC721Receiver, ITokenRecipient{
         _prices[tokenId] = 0;
         _owners[tokenId] = address(0);
 
-        _nft.safeTransferFrom(address(this), _to, tokenId);
-        _token.safeTransfer(from, _value - price);
+        _nft.safeTransferFrom(address(this), _from, tokenId);
+        _token.safeTransfer(owner, price);
+        _token.safeTransfer(_from, _value - price);
 
     }
 

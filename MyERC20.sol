@@ -117,7 +117,7 @@ contract MyERC20 is IERC20 {
             transfer(to, value);
             
             if (isContract(to)) {
-                IRecipient(to).tokenRecived(msg.sender, to, value, data);
+                ITokenRecipient(to).tokenRecived(msg.sender, to, value, data);
             }
             
             emit Transfer(msg.sender, to, value);
@@ -135,5 +135,3 @@ contract MyERC20 is IERC20 {
 
     
 }
-
-
