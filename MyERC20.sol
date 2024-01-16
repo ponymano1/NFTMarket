@@ -3,8 +3,8 @@ pragma solidity ^0.8;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 
-interface IRecipient {
-    function tokenRecived(address _from, address _to, uint256 _value) external;
+interface ITokenRecipient {
+    function tokenRecived(address _from, address _to, uint256 _value, uint256 data) external;
 }
 
 contract MyERC20 is IERC20 {
@@ -110,14 +110,14 @@ contract MyERC20 is IERC20 {
             return true;
     }
 
-    function transferToAndCallback(address to, uint256 value) external 
+    function transferToAndCallback(address to, uint256 value, uint256 data) external 
         ValidAddress(to)
         OnlySufficientBalance(msg.sender, value)
         returns (bool) {
             transfer(to, value);
             
             if (isContract(to)) {
-                IRecipient(to).tokenRecived(msg.sender, to, value);
+                IRecipient(to).tokenRecived(msg.sender, to, value, data);
             }
             
             emit Transfer(msg.sender, to, value);
