@@ -1,0 +1,16 @@
+{
+    "description": "Dinosaurs", 
+    "external_url": "ipfs://Qme8muA4cPXaR4ZSq5gXsgD6Hhh2dsYYEYvCoeF19sM7yF", 
+    "image": "ipfs://Qme8muA4cPXaR4ZSq5gXsgD6Hhh2dsYYEYvCoeF19sM7yF", 
+    "name": "Dinosaur",
+    "attributes": [
+        {
+            "trait_type": "Eyes", 
+            "value": "Big"
+        }, 
+        {
+            "trait_type": "Mouth", 
+            "value": "Surprised"
+        }
+    ]
+  }
