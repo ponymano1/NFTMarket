@@ -51,7 +51,7 @@ contract NFTMarket is IERC721Receiver{
         _nft = nft_;
     }
 
-    function list(uint256 tokenId, uint256 price) public OnlyNFTOwner(tokenId) {
+    function list(uint256 tokenId, uint256 price) public  {
         _nft.safeTransferFrom(msg.sender, address(this), tokenId);
         _prices[tokenId] = price;
         _owners[tokenId] = msg.sender;
